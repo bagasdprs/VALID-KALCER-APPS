@@ -1,4 +1,9 @@
 <script setup lang="ts">
+// definePageMeta({
+//   // layout: "empty",
+//   layout: "default",
+// });
+
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
 
@@ -26,7 +31,6 @@ const handleLogin = async () => {
       password: password.value,
     });
     if (error) throw error;
-    // Kalau sukses, otomatis redirect karena watchEffect di atas
   } catch (error: any) {
     errorMessage.value = error.message;
   } finally {
@@ -42,7 +46,102 @@ const handleSocialLogin = async (provider: "google" | "tiktok") => {
 </script>
 
 <template>
+  <div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden font-sans">
+    <BackgroundSkena />
+
+    <div class="absolute top-1/2 right-[10%] text-skena text-6xl font-bold opacity-80 animate-float-delayed">+</div>
+    <div class="absolute bottom-[20%] left-[15%] text-skena-dim text-6xl opacity-50 animate-spin-slow">*</div>
+
+    <div class="w-full max-w-112.5 relative z-10">
+      <div class="absolute -top-3 -right-2 bg-skena text-black text-[10px] font-black px-3 py-1 rounded-sm transform rotate-3 z-20 shadow-neon border border-black uppercase tracking-wider">Gen Z Ready</div>
+
+      <div class="bg-[#0a0a0a]/90 backdrop-blur-md border-2 border-skena/50 rounded-4xl p-8 shadow-neon relative">
+        <div class="text-center mb-8">
+          <div class="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-full mx-auto flex items-center justify-center mb-4 shadow-inner group hover:scale-110 transition-transform">
+            <UIcon name="i-heroicons-fire-solid" class="w-8 h-8 text-skena group-hover:animate-pulse" />
+          </div>
+          <h1 class="text-3xl font-bold text-white mb-1 tracking-tight">VibeZone</h1>
+          <p class="text-zinc-500 text-sm font-medium">Unlock your AI fashion era.</p>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            @click="handleSocialLogin('google')"
+            class="w-full bg-zinc-900 hover:bg-zinc-800 hover:border-skena text-white text-sm font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-3 border border-zinc-800 transition-all group"
+          >
+            <UIcon name="i-logos-google-icon" class="w-5 h-5" />
+            Continue with Google
+          </button>
+
+          <button
+            @click="handleSocialLogin('tiktok')"
+            class="w-full bg-zinc-900 hover:bg-zinc-800 hover:border-[#ff0050] text-white text-sm font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-3 border border-zinc-800 transition-all"
+          >
+            <UIcon name="i-logos-tiktok-icon" class="w-5 h-5" />
+            Continue with TikTok
+          </button>
+        </div>
+
+        <div class="flex items-center gap-4 mb-6">
+          <div class="h-px bg-zinc-800 flex-1"></div>
+          <span class="text-xs text-zinc-600 font-bold uppercase tracking-widest">OR</span>
+          <div class="h-px bg-zinc-800 flex-1"></div>
+        </div>
+
+        <form @submit.prevent="handleLogin" class="space-y-5">
+          <div class="group">
+            <label class="block text-[10px] font-bold text-skena tracking-wider uppercase mb-1 ml-1">Email</label>
+            <input
+              v-model="email"
+              type="email"
+              placeholder="ur-email@vibe.com"
+              class="w-full bg-[#121212] border border-zinc-800 text-white rounded-xl px-4 py-3 text-sm focus:border-skena focus:ring-1 focus:ring-skena focus:shadow-neon outline-none transition-all placeholder:text-zinc-700"
+              required
+            />
+          </div>
+
+          <div class="group">
+            <label class="block text-[10px] font-bold text-skena-dim tracking-wider uppercase mb-1 ml-1">Password</label>
+            <input
+              v-model="password"
+              type="password"
+              placeholder="********"
+              class="w-full bg-[#121212] border border-zinc-800 text-white rounded-xl px-4 py-3 text-sm focus:border-skena focus:ring-1 focus:ring-skena focus:shadow-neon outline-none transition-all placeholder:text-zinc-700"
+              required
+            />
+          </div>
+
+          <div v-if="errorMessage" class="text-red-500 text-xs text-center bg-red-500/10 p-2 rounded-lg border border-red-500/20 animate-shake">
+            {{ errorMessage }}
+          </div>
+
+          <button
+            type="submit"
+            :disabled="isLoading"
+            class="w-full bg-skena text-black font-black text-lg py-3 rounded-full mt-2 shadow-neon hover:scale-[1.02] hover:bg-white active:scale-95 transition-all flex items-center justify-center gap-2 relative overflow-hidden group"
+          >
+            <span v-if="isLoading" class="animate-pulse">LOADING...</span>
+            <span v-else class="flex items-center gap-2">
+              LET'S GO
+              <UIcon name="i-heroicons-arrow-right-20-solid" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </button>
+        </form>
+
+        <div class="text-center mt-6 space-y-2">
+          <p class="text-zinc-500 text-xs">
+            No account?
+            <NuxtLink to="/register" class="text-white underline decoration-skena decoration-2 underline-offset-4 hover:text-skena transition-colors font-bold">Join the wave</NuxtLink>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- <template>
   <div class="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden font-sans">
+    <BackgroundSkena />
     <div class="hidden md:block absolute top-[15%] left-[20%] animate-pulse">
       <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-[#db2777] shadow-[0_0_20px_rgba(219,39,119,0.5)]">
         <img src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?w=400&q=80" alt="Vibe" class="w-full h-full object-cover" />
@@ -149,7 +248,7 @@ const handleSocialLogin = async (provider: "google" | "tiktok") => {
       </div>
     </div>
   </div>
-</template>
+</template> -->
 
 <style scoped>
 /* Animasi Muter pelan buat dekorasi */
@@ -163,5 +262,29 @@ const handleSocialLogin = async (provider: "google" | "tiktok") => {
 }
 .animate-spin-slow {
   animation: spin-slow 12s linear infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 </style>

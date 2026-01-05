@@ -17,7 +17,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  modules: ["@nuxt/ui", "@pinia/nuxt", "@nuxtjs/supabase"],
+  modules: ["@nuxt/ui", "@pinia/nuxt", "@nuxtjs/supabase", "@vueuse/nuxt"],
   supabase: {
     redirect: false,
   },

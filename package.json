@@ -26,6 +26,7 @@
     "@vuepic/vue-datepicker": "^12.1.0",
     "@vueuse/core": "^14.1.0",
     "@vueuse/motion": "^3.0.3",
+    "@vueuse/nuxt": "^14.1.0",
     "ag-grid-community": "^35.0.0",
     "aos": "^2.3.4",
     "axios": "^1.13.2",
