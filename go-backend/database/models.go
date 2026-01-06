@@ -20,15 +20,18 @@ type User struct {
 	Name string `json:"name"`
 	Email string `json:"email" gorm:"uniqueIndex;not null"`
 	Password string `json:"-"`
+
 	Role string `json:"role" gorm:"default:user"`
+	Credits int `json:"credits" gorm:"default:3"`
+	AestheticVibe string `json:"aesthetic_vibe"`
+	IsBanned bool `json:"is_banned" gorm:"default:false"`
+
 	Provider string `json:"provider" gorm:"default:email"`
 
 	Age int `json:"age"`
 	Gender string `json:"gender"`
-
 	AvatarURL string `json:"avatar_url"`
 	Bio string `json:"bio" gorm:"type:text"`
-
 	InstagramHandle string `json:"instagram_handle"`
 	IsVerified bool `json:"is_verified" gorm:"default:false"`
 
@@ -45,8 +48,11 @@ type ScanHistory struct {
 	User User `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 
 	ImageURL string `json:"image_url"`
-	AiResponse string `json:"ai_response" gorm:"type:text"`
+
 	Score int `json:"score"`
+	AiResponse string `json:"ai_response" gorm:"type:text"`
+	AiRoast string `json:"ai_roast" gorm:"type:text"`
+	AestheticDetected string `json:"aesthetic_detected"`
 
 	Caption string `json:"caption" gorm:"type:text"`
 	Location string `json:"location"`
@@ -65,4 +71,14 @@ type Like struct {
 
 	ScanHistoryID uint `json:"scan_history_id" gorm:"uniqueIndex:idx_user_scan"`
 	ScanHistory ScanHistory `json:"scan_history"`
+}
+
+// --- 4. Table SYSTEM CONFIG ---
+type SystemConfig struct {
+	Key string `gorm:"primaryKey" json:"key"`
+	Value string `json:"value"`
+	Description string `json:"description"`
+
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }

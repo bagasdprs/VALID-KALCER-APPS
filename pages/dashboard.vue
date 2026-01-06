@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// Proteksi halaman dashboard (hanya user login yang bisa masuk)
 const user = useSupabaseUser();
 watchEffect(() => {
   if (!user.value) {
@@ -9,12 +8,14 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-black text-white flex items-center justify-center">
-    <div class="text-center">
-      <h1 class="text-4xl font-bold text-skena mb-4">Welcome to Dashboard 🚀</h1>
-      <p class="text-gray-400">Design dashboard user akan kita buat besok ya!</p>
+  <div class="min-h-screen bg-[#050505] text-white font-sans selection:bg-skena selection:text-black">
+    <Navbar />
 
-      <button @click="useSupabaseClient().auth.signOut()" class="mt-8 px-6 py-2 bg-red-600 rounded-full text-white font-bold">Logout</button>
-    </div>
+    <main class="pt-24 px-4 pb-10 max-w-7xl mx-auto">
+      <div class="text-center py-20">
+        <h1 class="text-3xl font-bold text-gray-500">Area Konten Dashboard...</h1>
+        <p class="text-gray-600">Nanti Kotak Scan & Result Card masuk sini.</p>
+      </div>
+    </main>
   </div>
 </template>

@@ -29,10 +29,10 @@ func ConnectDB() {
 	log.Println("⚙️  Creating Tables...")
 
 	// 3. Auto Migrate Tables
-	err = DB.AutoMigrate(&User{}, &ScanHistory{}, &Like{})
+	err = DB.AutoMigrate(&User{}, &ScanHistory{}, &Like{}, &SystemConfig{})
 	if err != nil {
 		log.Fatal("❌ Failed to Migrate Table: ", err)
 	}
 
-	log.Println("✅ Successfully created Users, Scans, & Likes tables! 🎉")
+	log.Println("✅ Successfully created Users, Scans, Likes, & SystemConfig tables! 🎉")
 }
