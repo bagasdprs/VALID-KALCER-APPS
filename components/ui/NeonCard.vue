@@ -1,31 +1,29 @@
+<script setup lang="ts">
+defineProps({
+  glow: {
+    type: Boolean,
+    default: true,
+  },
+  hoverEffect: {
+    type: Boolean,
+    default: false,
+  },
+});
+</script>
+
 <template>
-  <div class="relative p-0.5 overflow-hidden rounded-xl group">
-    <div class="absolute inset-0 bg-linear-to-r from-transparent via-green-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
+  <div
+    class="relative bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-300 group"
+    :class="{
+      'hover:border-skena/50 hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] hover:-translate-y-1': hoverEffect,
+    }"
+  >
+    <div v-if="glow" class="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-skena to-transparent opacity-50"></div>
 
-    <div class="absolute inset-0 border-2 border-green-500/20 rounded-xl"></div>
-
-    <div class="relative bg-black rounded-xl p-6 h-full border border-white/5">
+    <div class="relative z-10">
       <slot />
     </div>
+
+    <div class="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none"></div>
   </div>
 </template>
-
-<style scoped>
-/* Bikin animasi muter pelan buat gradientnya */
-@keyframes spin-slow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.animate-spin-slow {
-  animation: spin-slow 4s linear infinite;
-  /* Bikin gradientnya lebih gede dari kotaknya biar muternya keliatan */
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
-}
-</style>

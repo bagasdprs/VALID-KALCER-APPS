@@ -1,8 +1,4 @@
 <template>
-  <!-- <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div> -->
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
@@ -19,10 +15,10 @@ const tokenCookie = useCookie("token");
 const roleCookie = useCookie("role");
 
 function setRole(role: string) {
-  tokenCookie.value = "dummy-token-123"; // Set token sembarang
-  roleCookie.value = role; // Set role sesuai tombol
+  tokenCookie.value = "dummy-token-123";
+  roleCookie.value = role;
   alert(`Mode berubah jadi: ${role.toUpperCase()}`);
-  window.location.reload(); // Refresh biar middleware jalan
+  window.location.reload();
 }
 
 function logout() {
