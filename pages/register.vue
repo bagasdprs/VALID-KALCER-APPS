@@ -64,7 +64,7 @@ const handleRegister = async () => {
     <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-0 relative z-10">
       <div class="hidden lg:flex relative items-center justify-center p-10">
         <div class="relative w-95 h-125 border-4 border-white rounded-4xl bg-zinc-800 -rotate-3 hover:rotate-0 transition-transform duration-500 shadow-[0_0_30px_rgba(57,255,20,0.3)] overflow-hidden z-20">
-          <img src="https://images.unsplash.com/photo-1617387682382-353285750339?q=80&w=1965&auto=format&fit=crop" alt="Cyber Aesthetic" class="w-full h-full object-cover" />
+          <img src="https://unsplash.com/photos/woman-with-sunglasses-standing-outdoor-during-daytime-BteCp6aq4GI" alt="Cyber Aesthetic" class="w-full h-full object-cover" />
         </div>
 
         <div class="absolute top-20 right-20 bg-white p-2 pb-8 shadow-lg rotate-12 z-10 animate-float-delayed">

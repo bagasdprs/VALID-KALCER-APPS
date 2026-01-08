@@ -31,10 +31,25 @@
       </div>
     </main>
 
-    <footer class="border-t border-white/10 py-8 mt-20 bg-zinc-950">
+    <footer class="border-t border-white/10 py-10 mt-20 bg-zinc-950 relative z-10">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <p class="text-zinc-600 text-xs md:text-sm font-mono">
+          &copy; 2026 VALID KALCER. All rights reserved.
+
+          <span class="hidden md:inline mx-2 text-zinc-800">|</span>
+          <br class="md:hidden my-1" />
+
+          Developed by
+          <a href="https://github.com/bagasdwiprasandi" target="_blank" class="text-skena font-bold hover:text-white hover:underline transition-all duration-300"> Bagas D. </a>
+        </p>
+
+        <p class="text-zinc-800 text-[10px] mt-2 font-mono">System.v2.0.4 // JKT_SOUTH_NODE</p>
+      </div>
+    </footer>
+    <!-- <footer class="border-t border-white/10 py-8 mt-20 bg-zinc-950">
       <div class="max-w-7xl mx-auto px-6 text-center">
         <p class="text-zinc-500 text-sm">&copy; 2026 Valid Kalcer. Dibuat dengan <span class="text-red-500">☕</span> dan <span class="text-skena">Golang</span>.</p>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </template>

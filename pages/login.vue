@@ -49,7 +49,7 @@ const handleSocialLogin = async (provider: "google" | "tiktok") => {
   <div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden font-sans">
     <BackgroundSkena />
 
-    <div class="absolute top-1/2 right-[10%] text-skena text-6xl font-bold opacity-80 animate-float-delayed">+</div>
+    <div class="absolute top-1/2 right-[10%] text-skena text-6xl font-bold opacity-80 animate-spin-slow">+</div>
     <div class="absolute bottom-[20%] left-[15%] text-skena-dim text-6xl opacity-50 animate-spin-slow">*</div>
 
     <div class="w-full max-w-112.5 relative z-10">

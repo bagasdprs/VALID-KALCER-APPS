@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from "vue";
+
+// --- 1. DATA SURVIVORS (Sesuai kode kamu) ---
 const survivors = [
   {
     id: "#USER_8821",
     name: "@scenepop_princess",
     location: "LOC: JAKSEL",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop", // Cewek kacamata
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
     score: 8.5,
     text: "Jujurly this AI read me to filth but valid bgt fits nya. The vibe check was BRUTAL but accurate. Akhirnya ada yang paham core aesthetics gue.",
     accuracy: 98,
@@ -14,7 +17,7 @@ const survivors = [
     id: "#USER_4200",
     name: "skaterboi_99",
     location: "LOC: BSD CITY",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop", // Cowok cool
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop",
     score: 6.0,
     text: "Literally shaking, AI nya savage parah. It knew my thrift finds were 'mid'. Need emotional support rn but respect the honesty.",
     accuracy: 92,
@@ -24,17 +27,70 @@ const survivors = [
     id: "#USER_0666",
     name: "cyber_goth_gf",
     location: "LOC: BANDUNG",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop", // Cewek dark
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
     score: 10.0,
     text: "Akhirnya ada yang ngerti aesthetic gue. 100% valid no cap. This AI passed the vibe check. My fit is legendary status now.",
     accuracy: 100,
     dripLevel: 99,
   },
 ];
+
+// --- 2. LOGIC TYPEWRITER (The Magic) ---
+const words = [
+  "ROASTED.", // Original
+  "COOKED.", // Istilah Gen Z
+  "VIOLATED.", // Kasar dikit
+  "HUMBLED.", // Jadi rendah hati
+  "CHECKED.", // Vibe check
+  "DESTROYED.", // Lebay
+];
+
+const displayedText = ref("");
+const isDeleting = ref(false);
+const loopNum = ref(0);
+const typingSpeed = ref(150);
+let timer: any = null;
+
+const handleTyping = () => {
+  const i = loopNum.value % words.length;
+  const fullText = words[i] || "";
+
+  if (isDeleting.value) {
+    // Sedang menghapus
+    displayedText.value = fullText.substring(0, displayedText.value.length - 1);
+    typingSpeed.value = 50;
+  } else {
+    // Sedang mengetik
+    displayedText.value = fullText.substring(0, displayedText.value.length + 1);
+    typingSpeed.value = 150;
+  }
+
+  // Logic pindah state
+  if (!isDeleting.value && displayedText.value === fullText) {
+    // Selesai ngetik, pause bentar biar kebaca
+    typingSpeed.value = 2000;
+    isDeleting.value = true;
+  } else if (isDeleting.value && displayedText.value === "") {
+    // Selesai hapus, ganti kata
+    isDeleting.value = false;
+    loopNum.value++;
+    typingSpeed.value = 500;
+  }
+
+  timer = setTimeout(handleTyping, typingSpeed.value);
+};
+
+onMounted(() => {
+  handleTyping();
+});
+
+onUnmounted(() => {
+  clearTimeout(timer);
+});
 </script>
 
 <template>
-  <section class="relative py-24 px-6 z-10 overflow-hidden">
+  <section class="relative py-24 px-6 z-10 overflow-hidden bg-black border-t border-zinc-900">
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto relative">
@@ -48,7 +104,9 @@ const survivors = [
         </div>
 
         <h2 class="text-5xl md:text-7xl font-black text-white leading-tight uppercase">
-          THEY GOT <span class="bg-skena text-black px-2 transform -skew-x-6 inline-block">ROASTED.</span> <br />
+          THEY GOT <br class="md:hidden" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-skena via-green-400 to-teal-500 font-black filtering drop-shadow-[0_0_10px_rgba(22,163,74,0.5)]"> {{ displayedText }}<span class="animate-blink">|</span> </span>
+          <br />
           THEY LOVED IT.
         </h2>
 
@@ -128,3 +186,20 @@ const survivors = [
     </div>
   </section>
 </template>
+
+<style scoped>
+/* CSS buat Cursor kedip-kedip */
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+</style>
